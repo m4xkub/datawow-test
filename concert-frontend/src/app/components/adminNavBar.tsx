@@ -7,7 +7,7 @@ import { FaBoxArchive } from "react-icons/fa6";
 export default function AdminNavBar() {
   const [activePage, setActivePage] = useState("Home");
   return (
-    <nav className="w-[15%] min-h-screen bg-white flex flex-col">
+    <nav className="sm:w-[15%] w-[30%] min-h-screen bg-white flex flex-col">
       <div className="bg-white text-black font-bold text-3xl py-6 px-4 mt-8 max-sm:hidden">
         Admin
       </div>
