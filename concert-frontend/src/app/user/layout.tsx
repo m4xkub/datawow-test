@@ -1,4 +1,5 @@
 import React from "react";
+import UserNavBar from "../components/userNavBar";
 
 export default function UserLayout({
   children,
@@ -6,12 +7,9 @@ export default function UserLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
-      <nav>
-        {/* your user navbar here */}
-        <h1>User Navbar</h1>
-      </nav>
-      <main>{children}</main>
+    <div className="flex min-w-screen min-h-screen">
+      <UserNavBar />
+      {children}
     </div>
   );
 }
