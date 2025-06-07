@@ -1,6 +1,13 @@
+"use client";
+import { useState } from "react";
 import { FaSave } from "react-icons/fa";
+import CreateConcert from "../api/createConcert";
 
 export default function CreateConcertForm() {
+  const [concertName, setConcertName] = useState("");
+  const [seats, setSeats] = useState(500);
+  const [description, setDescription] = useState("");
+
   return (
     <form className="h-[90%] max-h-[478px] bg-white border border-gray-400 rounded-lg p-8 space-y-6 overflow-scroll">
       <p className="text-4xl font-bold text-blue-400">Create</p>
@@ -15,6 +22,7 @@ export default function CreateConcertForm() {
             type="text"
             placeholder="Please input concert name"
             className="w-full border border-gray-300 rounded px-4 py-2"
+            onChange={(e) => setConcertName(e.target.value)}
           />
         </div>
 
@@ -27,6 +35,7 @@ export default function CreateConcertForm() {
               type="number"
               defaultValue="500"
               className="w-full border border-gray-300 rounded px-4 py-2 pr-10"
+              onChange={(e) => setSeats(Number(e.target.value))}
             />
             {/* <FaUser className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500" /> */}
           </div>
@@ -38,6 +47,7 @@ export default function CreateConcertForm() {
         <textarea
           placeholder="Please input description"
           className="w-full border border-gray-300 rounded px-4 py-2 h-28"
+          onChange={(e) => setDescription(e.target.value)}
         />
       </div>
 
@@ -45,6 +55,11 @@ export default function CreateConcertForm() {
         <button
           type="submit"
           className="flex items-center gap-2 bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600"
+          onClick={() => {
+            if (concertName && seats && description) {
+              CreateConcert(concertName, description, seats);
+            }
+          }}
         >
           <FaSave />
           Save
