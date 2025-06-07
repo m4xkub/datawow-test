@@ -45,7 +45,7 @@ export default function Page() {
         </button>
       </div>
 
-      <div className="w-full h-[2000px] overflow-y-auto flex flex-col mt-10">
+      <div className="w-full h-[2000px] overflow-y-auto flex flex-col mt-10 hide-scrollbar">
         {activeTab == "overview" && <ConcertList />}
         {activeTab == "create" && <CreateConcertForm />}
       </div>

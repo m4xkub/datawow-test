@@ -2,11 +2,14 @@
 
 import { useState } from "react";
 import { login } from "../api/login";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,9 +17,19 @@ export default function Page() {
       const res = await login({ username, password });
       setError("");
       console.log("Login Success");
-      console.log(localStorage.getItem("role"));
+      const role = localStorage.getItem("role");
+      console.log(role);
+
+      if (role == "ADMIN") {
+        router.push("/admin");
+      } else if (role == "USER") {
+        router.push("/user");
+      } else {
+        console.log("Unidentify role");
+      }
     } catch (err: any) {
       setError(err.message || "Login failed");
+      console.log(err.message);
     }
   };
 
