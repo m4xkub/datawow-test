@@ -9,13 +9,21 @@ import ReserveSeat from "../api/reserve";
 import CancelSeat from "../api/cancel";
 import CreateHistory from "../api/createHistory";
 import { UserAction } from "../config/userAction";
+import ConfirmDeleteModal from "./confirmDeletionModal";
+import ErrorModal from "./errorModal";
+import { ErrorIcon } from "react-hot-toast";
 
 export default function ConcertList() {
   const [concerts, setConcerts] = useState<ConcertInterface[]>([]);
   const [refreshKey, setRefreshKey] = useState(0);
   const [role, setRole] = useState("");
   const [reservedMap, setReservedMap] = useState<Record<string, boolean>>({});
-
+  const [targetConcert, setTargetConcert] = useState<ConcertInterface | null>(
+    null
+  );
+  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [error, setError] = useState("");
   useEffect(() => {
     const fetchConcertsAndReservations = async () => {
       const { result } = await GetConcerts();
@@ -42,6 +50,21 @@ export default function ConcertList() {
     fetchConcertsAndReservations();
   }, [refreshKey]);
 
+  const handleDeleteClick = (concert: ConcertInterface) => {
+    setTargetConcert(concert);
+    setConfirmModalOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (targetConcert) {
+      // Call API to delete: await deleteConcertById(targetConcert.id)
+      await DeleteConcertById(targetConcert.id);
+      setRefreshKey((prev) => prev + 1);
+      console.log("Deleting", targetConcert.id);
+    }
+    setConfirmModalOpen(false);
+  };
+
   return (
     <div className="space-y-12 mb-4">
       {concerts.map((concert) => (
@@ -63,8 +86,7 @@ export default function ConcertList() {
               <button
                 className="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
                 onClick={async () => {
-                  await DeleteConcertById(concert.id);
-                  setRefreshKey((prev) => prev + 1);
+                  handleDeleteClick(concert);
                 }}
               >
                 <FaTrash />
@@ -74,10 +96,21 @@ export default function ConcertList() {
               <button
                 className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                 onClick={async () => {
-                  console.log("Reserve concert", concert.id);
-                  await ReserveSeat(concert.id);
-                  await CreateHistory(concert.name, UserAction.RESERVED);
-                  await setRefreshKey(refreshKey + 1);
+                  try {
+                    console.log("Reserve concert", concert.id);
+
+                    await ReserveSeat(concert.id);
+                    await CreateHistory(concert.name, UserAction.RESERVED);
+
+                    setRefreshKey((prev) => prev + 1);
+                  } catch (err: any) {
+                    console.error(
+                      "Error occurred during reservation:",
+                      err.message
+                    );
+                    setError(err.message);
+                    setErrorModalOpen(true);
+                  }
                 }}
               >
                 🎟️ Reserve
@@ -86,10 +119,19 @@ export default function ConcertList() {
               <button
                 className="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
                 onClick={async () => {
-                  console.log("Cancel reservation", concert.id);
-                  await CancelSeat(concert.id);
-                  await CreateHistory(concert.name, UserAction.CANCELED);
-                  setRefreshKey(refreshKey + 1);
+                  try {
+                    console.log("Cancel reservation", concert.id);
+                    await CancelSeat(concert.id);
+                    await CreateHistory(concert.name, UserAction.CANCELED);
+                    setRefreshKey(refreshKey + 1);
+                  } catch (err: any) {
+                    console.error(
+                      "Error occurred during reservation:",
+                      err.message
+                    );
+                    setError(err.message);
+                    setErrorModalOpen(true);
+                  }
                 }}
               >
                 ❌ Cancel
@@ -98,6 +140,23 @@ export default function ConcertList() {
           </div>
         </div>
       ))}
+
+      {confirmModalOpen && targetConcert && (
+        <ConfirmDeleteModal
+          concertName={targetConcert.name}
+          onCancel={() => setConfirmModalOpen(false)}
+          onConfirm={confirmDelete}
+        />
+      )}
+      {errorModalOpen && error && (
+        <ErrorModal
+          errorMessage={error}
+          onClose={() => {
+            setErrorModalOpen(false);
+            setError("");
+          }}
+        />
+      )}
     </div>
   );
 }
