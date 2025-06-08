@@ -1,6 +1,5 @@
 export default async function ReserveSeat(concertId: string) {
   const backendUri = process.env.NEXT_PUBLIC_BACKEND_URI;
-  console.log("url", backendUri);
   if (!backendUri) {
     throw new Error("BACKEND_URI is not defined");
   }
