@@ -1,4 +1,4 @@
 export enum UserAction {
-  RESERVE = "RESERVE",
-  CANCEL = "CANCEL",
+  RESERVED = "Reserved",
+  CANCELED = "Canceled",
 }
