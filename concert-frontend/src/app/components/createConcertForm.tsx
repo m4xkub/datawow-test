@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
-import { FaSave } from "react-icons/fa";
+import { FaSave, FaUser } from "react-icons/fa";
 import CreateConcert from "../api/createConcert";
 
 export default function CreateConcertForm() {
   const [concertName, setConcertName] = useState("");
-  const [seats, setSeats] = useState(500);
+  const [seats, setSeats] = useState(0);
   const [description, setDescription] = useState("");
 
   return (
@@ -37,7 +37,7 @@ export default function CreateConcertForm() {
               className="w-full border border-gray-300 rounded px-4 py-2 pr-10"
               onChange={(e) => setSeats(Number(e.target.value))}
             />
-            {/* <FaUser className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500" /> */}
+            <FaUser className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
           </div>
         </div>
       </div>

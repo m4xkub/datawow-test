@@ -11,7 +11,6 @@ import CreateHistory from "../api/createHistory";
 import { UserAction } from "../config/userAction";
 import ConfirmDeleteModal from "./confirmDeletionModal";
 import ErrorModal from "./errorModal";
-import { ErrorIcon } from "react-hot-toast";
 
 export default function ConcertList() {
   const [concerts, setConcerts] = useState<ConcertInterface[]>([]);
@@ -57,7 +56,6 @@ export default function ConcertList() {
 
   const confirmDelete = async () => {
     if (targetConcert) {
-      // Call API to delete: await deleteConcertById(targetConcert.id)
       await DeleteConcertById(targetConcert.id);
       setRefreshKey((prev) => prev + 1);
       console.log("Deleting", targetConcert.id);
