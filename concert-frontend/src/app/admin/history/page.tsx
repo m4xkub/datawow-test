@@ -1,6 +1,6 @@
 "use client";
 import GetHistories from "@/app/api/getHistories";
-import { HistoryInterface } from "@/app/interface/historyInterface";
+import { HistoryInterface } from "@/app/interface/HistoryInterface";
 import { useEffect, useState } from "react";
 
 export default function Page() {

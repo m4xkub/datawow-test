@@ -2,15 +2,15 @@
 import { useEffect, useState } from "react";
 import GetConcerts from "../api/getConcerts";
 import { FaTrash, FaUser } from "react-icons/fa";
-import { ConcertInterface } from "../interface/concertInterface";
 import DeleteConcertById from "../api/deleteConcertById";
 import IsReserved from "../api/isReserved";
 import ReserveSeat from "../api/reserve";
 import CancelSeat from "../api/cancel";
 import CreateHistory from "../api/createHistory";
-import { UserAction } from "../config/userAction";
+import { UserAction } from "../config/UserAction";
 import ConfirmDeleteModal from "./confirmDeletionModal";
 import ErrorModal from "./errorModal";
+import { ConcertInterface } from "../interface/ConcertInterface";
 
 export default function ConcertList() {
   const [concerts, setConcerts] = useState<ConcertInterface[]>([]);

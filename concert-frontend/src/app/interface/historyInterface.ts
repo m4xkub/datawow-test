@@ -1,4 +1,4 @@
-import { UserAction } from "../config/userAction";
+import { UserAction } from "../config/UserAction";
 
 export interface HistoryInterface {
   id: string;
