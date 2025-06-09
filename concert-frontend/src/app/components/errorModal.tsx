@@ -4,10 +4,7 @@ interface ErrorModalProps {
   errorMessage: string;
   onClose: () => void;
 }
-export default function ConfirmDeleteModal({
-  errorMessage,
-  onClose,
-}: ErrorModalProps) {
+export default function ErrorModal({ errorMessage, onClose }: ErrorModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black opacity-50"></div>
