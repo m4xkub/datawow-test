@@ -1,9 +1,5 @@
 import { FaTimesCircle } from "react-icons/fa";
 
-interface ErrorModalProps {
-  errorMessage: string;
-  onClose: () => void;
-}
 export default function ErrorModal({ errorMessage, onClose }: ErrorModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
