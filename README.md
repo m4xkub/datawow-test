@@ -1,5 +1,16 @@
 # datawow-frontend-test
 
+## Prerequisites
+
+Node version 20
+NPM version 10
+
+## Installation
+
+```bash
+$ npm install
+```
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
