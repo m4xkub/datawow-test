@@ -2,11 +2,14 @@
 import { useState } from "react";
 import { FaSave, FaUser } from "react-icons/fa";
 import CreateConcert from "../api/createConcert";
+import ErrorModal from "./errorModal";
 
 export default function CreateConcertForm() {
   const [concertName, setConcertName] = useState("");
-  const [seats, setSeats] = useState(0);
+  const [seats, setSeats] = useState(500);
   const [description, setDescription] = useState("");
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [error, setError] = useState("");
 
   return (
     <form className="h-[90%] max-h-[478px] bg-white border border-gray-400 rounded-lg p-8 space-y-6 overflow-scroll">
@@ -55,9 +58,17 @@ export default function CreateConcertForm() {
         <button
           type="submit"
           className="flex items-center gap-2 bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600"
-          onClick={() => {
-            if (concertName && seats && description) {
-              CreateConcert(concertName, description, seats);
+          onClick={async (e) => {
+            e.preventDefault();
+            try {
+              if (concertName && seats && description) {
+                await CreateConcert(concertName, description, seats);
+                window.location.reload();
+              }
+            } catch (err: any) {
+              setError(err.message);
+              setErrorModalOpen(true);
+              console.log(e);
             }
           }}
         >
@@ -65,6 +76,16 @@ export default function CreateConcertForm() {
           Save
         </button>
       </div>
+
+      {errorModalOpen && error && (
+        <ErrorModal
+          errorMessage={error}
+          onClose={() => {
+            setErrorModalOpen(false);
+            setError("");
+          }}
+        />
+      )}
     </form>
   );
 }
