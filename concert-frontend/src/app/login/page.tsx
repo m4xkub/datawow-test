@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { login } from "../api/login";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 export default function Page() {
   const [username, setUsername] = useState("");
@@ -68,6 +68,14 @@ export default function Page() {
             {error}
           </p>
         )}
+
+        <button
+          type="submit"
+          className="w-full text-blue-500 text-start"
+          onClick={() => redirect("/")}
+        >
+          Register?
+        </button>
 
         <button
           type="submit"

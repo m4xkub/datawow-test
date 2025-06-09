@@ -1,5 +1,3 @@
-"use client";
-
 export async function login({
   username,
   password,
