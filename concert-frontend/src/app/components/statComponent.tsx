@@ -47,19 +47,19 @@ export default function StatComponent() {
   }, []);
 
   if (loading) return null;
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
       {cards.map((card) => (
         <div
           key={card.title}
-          className={`${card.bg} text-white rounded-lg px-20 py-12 text-center space-y-4 flex flex-col items-center justify-center`}
+          className={`${card.bg} text-white rounded-lg px-6 py-8 md:px-20 md:py-12 text-center flex flex-col items-center justify-center w-full`}
         >
-          <div>
-            <div className="flex justify-center">{card.icon}</div>
-            <div className="text-lg">{card.title}</div>
+          <div className="flex justify-center mb-2">{card.icon}</div>
+          <div className="text-sm sm:text-lg">{card.title}</div>
+          <div className="text-xl sm:text-3xl sm:font-bold mt-2">
+            {card.value}
           </div>
-
-          <div className="text-3xl font-bold">{card.value}</div>
         </div>
       ))}
     </div>
