@@ -32,8 +32,6 @@ export default function ConcertList() {
       if (roleFromLocalStorage) {
         setRole(roleFromLocalStorage);
       }
-
-      // For USER role: fetch reservation status per concert
       if (roleFromLocalStorage === "USER") {
         const map: Record<string, boolean> = {};
         await Promise.all(

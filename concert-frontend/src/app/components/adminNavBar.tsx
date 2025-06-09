@@ -25,7 +25,7 @@ export default function AdminNavBar() {
           redirect("/admin");
         }}
       >
-        <FaHome />
+        <FaHome className="max-md:hidden" />
         <span>Home</span>
       </button>
       <button
@@ -37,7 +37,7 @@ export default function AdminNavBar() {
           redirect("/admin/history");
         }}
       >
-        <FaBoxArchive />
+        <FaBoxArchive className="max-md:hidden" />
         <span>History</span>
       </button>
       <div className="flex-grow" />
@@ -48,7 +48,7 @@ export default function AdminNavBar() {
           redirect("/login");
         }}
       >
-        <FaSignOutAlt />
+        <FaSignOutAlt className="max-md:hidden" />
         <span>Logout</span>
       </button>
     </nav>

@@ -52,7 +52,7 @@ export default function StatComponent() {
       {cards.map((card) => (
         <div
           key={card.title}
-          className={`${card.bg} text-white rounded-lg px-20 py-12 text-center space-y-4`}
+          className={`${card.bg} text-white rounded-lg px-20 py-12 text-center space-y-4 flex flex-col items-center justify-center`}
         >
           <div>
             <div className="flex justify-center">{card.icon}</div>
